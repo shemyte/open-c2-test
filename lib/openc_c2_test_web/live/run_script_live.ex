@@ -26,7 +26,10 @@ defmodule OpencC2TestWeb.RunScriptLive do
         <.input
           type="select"
           field={@form[:broker]}
-          options={[emqx_broker: "emqx"]}
+          options={[
+            emqx_broker: "emqx",
+            HiveMQ_broker: "hivemq"
+          ]}
           prompt="Select broker"
           label="Which broker do you want to use?"
         />
