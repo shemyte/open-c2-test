@@ -14,9 +14,9 @@ defmodule OpencC2TestWeb.RunScriptLive do
   def render(assigns) do
     ~H"""
     <.flash_group flash={@flash} />
-    <div class="left-[40rem] fixed inset-y-0 right-0 z-0 hidden lg:block xl:left-[50rem] mt-20">
-      <div class="container mx-auto">
-        <.form class="mt-20 w-3/4" for={@form} phx-change="validate" phx-submit="save">
+    <div class="left-[40rem] fixed inset-y-0 right-0 z-0 hidden lg:block xl:left-[50rem] bg-indigo-900">
+      <div class="sm:flex sm:justify-center">
+        <.form class="mt-40 w-3/4 bg-gray-100 p-5 rounded-lg" for={@form} phx-change="validate" phx-submit="save">
           <div class="mb-4">
             <.input
             type="select"
@@ -65,11 +65,16 @@ defmodule OpencC2TestWeb.RunScriptLive do
     <div class="px-4 py-10 sm:px-6 sm:py-28 lg:px-8 xl:px-28 xl:py-32 mt-20">
       <div class="mx-auto max-w-xl lg:mx-0">
         <p class="text-[2rem] mt-4 font-semibold text-indigo-900">
-          Welcome to the new interface for TwinklyMaha.
+          Welcome to Openc2Test
         </p>
         <p class="mt-4 text-indigo-600">
-          To ensure that you have a smooth experience,
-          we created this as your primary way to interact with TwinklyMaha.
+          Openc2Test is a dashboard for testing connection between clients/devices over a broker.
+          This dashboard provides a convinient way for choosing a desired broker and the command you
+          wish to test with.
+        </p>
+        <p class="mt-4 text-indigo-600">
+          To get started, simply select the device, broker and the command from the form provided, click Run and
+          head over to TwinklyMaha to see your changes.
         </p>
       </div>
     </div>
@@ -87,12 +92,12 @@ defmodule OpencC2TestWeb.RunScriptLive do
 
   def handle_event("save", %{"test_script" => params}, socket) do
     Logger.info("Button Clicked")
-    
+
     publish_message(params)
 
     Logger.info("message is published")
 
-    {:noreply, put_flash(socket, :info, "Successful")}
+    {:noreply, put_flash(socket, :info, "Head over to TwinklyMaha to see your changes.")}
   end
 
   defp publish_message(%{"command" => "query_profile"}) do
@@ -123,7 +128,7 @@ defmodule OpencC2TestWeb.RunScriptLive do
     |> Emqtt.publish()
   end
 
-  defp publish_message(params) do
+  defp publish_message(_params) do
     Logger.info("commands not matching")
   end
 end
